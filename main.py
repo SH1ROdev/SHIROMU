@@ -1,7 +1,6 @@
 import asyncio
 import re
-
-import utils.discord_osint
+from utils.steamsearch import get_steam_data, display_profile_info, display_friends_info
 from utils.shiromu_helper import shhelper_help
 from utils import metasearch
 import localdb.localdbsearch
@@ -17,10 +16,9 @@ from utils import create_fake_paste
 from utils import all_parsers
 from allbanners import banner1, banner2, banner3, banner4
 from smscallbomber import SMSCallBomber
-from localdb import *
 from utils import nicks
 from utils.discord_osint import get_discord_user_info, get_info_by_dsid, get_all_nicknames, get_nicks_by_id, \
-    get_friends_by_id, sobitiya_usera, format_events, voice_history, format_voice_history
+    get_friends_by_id, sobitiya_usera, voice_history, format_voice_history
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -409,6 +407,27 @@ while True:
             data = response.json()
             dlya_helpera = format_voice_history(data)
             shhelper_help(results=dlya_helpera)
+
+        if vd == 43:
+            def main():
+                targ_id = input('Введите STEAM ID таргета: ')
+
+                print("Получение данных...")
+                profile_data, friends_data = get_steam_data(targ_id)
+
+                if profile_data:
+                    display_profile_info(profile_data)
+                else:
+                    print("Не удалось получить данные профиля")
+
+                if friends_data:
+                    display_friends_info(friends_data)
+                else:
+                    print("Не удалось получить информацию о кентах")
+
+
+            if __name__ == "__main__":
+                main()
 
         if vd in [91, 16, 17, 18, 78, 93, 33, 34, 22, 29, 52]:  # 22
             print(ifv)

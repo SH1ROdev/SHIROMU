@@ -36,6 +36,8 @@ def banner_one():
         Fore.BLUE + "  ├─ [13] Поиск с использованием Telegram" + Fore.RESET)
     print(
         Fore.BLUE + "  ├─ [10] Поиск по email" + Fore.RESET)
+    print(
+        Fore.BLUE + "  ├─ [43] Поиск по STEAM ID" + Fore.RESET)
 
     print(Fore.BLUE + "└─ [52] Поиск по никнейму" + Fore.RESET)
 
