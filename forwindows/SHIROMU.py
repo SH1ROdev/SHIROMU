@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import (QLabel, QWidget, QPushButton,
                              QVBoxLayout, QDialog, QTextEdit, QInputDialog, QMessageBox)
 from PyQt6.QtGui import QMovie, QPalette, QColor, QPixmap
 from PyQt6.QtCore import Qt
-
+from PySide6.QtWidgets import QApplication, QMainWindow
 from utils import darklinks
 import utils.phonenumber_search as pn
 from utils.imports import *

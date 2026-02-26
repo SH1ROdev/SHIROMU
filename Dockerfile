@@ -1,8 +1,13 @@
 FROM python:3
 
-EXPOSE 1488
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
 COPY . .
-RUN python main.py
+
+EXPOSE 1488
 
 CMD ["python", "main.py"]
-
