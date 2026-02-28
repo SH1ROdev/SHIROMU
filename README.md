@@ -164,31 +164,31 @@
 		<blockquote>
 			<table>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/OSINT.txt'>OSINT.txt</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/OSINT.txt'>OSINT.txt</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/snostg.txt'>snostg.txt</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/snostg.txt'>snostg.txt</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/main.py'>main.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/main.py'>main.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/aboutshiromu.txt'>aboutshiromu.txt</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/aboutshiromu.txt'>aboutshiromu.txt</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/requirements.txt'>requirements.txt</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/requirements.txt'>requirements.txt</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/start.bat'>start.bat</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/start.bat'>start.bat</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/snostgc.txt'>snostgc.txt</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/snostgc.txt'>snostgc.txt</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			</table>
@@ -199,7 +199,7 @@
 		<blockquote>
 			<table>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/Config/func_comments_return.py'>func_comments_return.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/Config/func_comments_return.py'>func_comments_return.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			</table>
@@ -210,15 +210,15 @@
 		<blockquote>
 			<table>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/allbanners/banner2.py'>banner2.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/allbanners/banner2.py'>banner2.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/allbanners/banner3.py'>banner3.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/allbanners/banner3.py'>banner3.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/allbanners/banner1.py'>banner1.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/allbanners/banner1.py'>banner1.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			</table>
@@ -229,51 +229,51 @@
 		<blockquote>
 			<table>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/utils/darkforgui.py'>darkforgui.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/utils/darkforgui.py'>darkforgui.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/utils/dorking.py'>dorking.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/utils/dorking.py'>dorking.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/utils/create_fake_paste.py'>create_fake_paste.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/utils/create_fake_paste.py'>create_fake_paste.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/utils/imports.py'>imports.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/utils/imports.py'>imports.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/utils/doxpastecreate.py'>doxpastecreate.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/utils/doxpastecreate.py'>doxpastecreate.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/utils/all_parsers.py'>all_parsers.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/utils/all_parsers.py'>all_parsers.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/utils/ip_osint.py'>ip_osint.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/utils/ip_osint.py'>ip_osint.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/utils/nicks.py'>nicks.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/utils/nicks.py'>nicks.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/utils/metasearch.py'>metasearch.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/utils/metasearch.py'>metasearch.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/utils/phonenumber_search.py'>phonenumber_search.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/utils/phonenumber_search.py'>phonenumber_search.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/utils/Telegram_connect.py'>Telegram_connect.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/utils/Telegram_connect.py'>Telegram_connect.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/utils/darklinks.py'>darklinks.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/utils/darklinks.py'>darklinks.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			</table>
@@ -284,7 +284,7 @@
 		<blockquote>
 			<table>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/localdb/localdbsearch.py'>localdbsearch.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/localdb/localdbsearch.py'>localdbsearch.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			</table>
@@ -295,11 +295,11 @@
 		<blockquote>
 			<table>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/forwindows/aboutshiromu.txt'>aboutshiromu.txt</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/forwindows/aboutshiromu.txt'>aboutshiromu.txt</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
-				<td><b><a href='https://github.com/Kalimuro/SHIROMU/blob/master/forwindows/SHIROMU.py'>SHIROMU.py</a></b></td>
+				<td><b><a href='https://github.com/SH1ROdev/SHIROMU/blob/master/forwindows/SHIROMU.py'>SHIROMU.py</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			</table>
@@ -369,19 +369,12 @@ Run the test suite using the following command:
 
 
 ---
-##  Project Roadmap
-
-- [X] **`Task 1`**: <strike>Implement feature one.</strike>
-- [ ] **`Task 2`**: Implement feature two.
-- [ ] **`Task 3`**: Implement feature three.
-
----
 
 ##  Contributing
 
-- **💬 [Join the Discussions](https://github.com/Kalimuro/SHIROMU/discussions)**: Share your insights, provide feedback, or ask questions.
-- **🐛 [Report Issues](https://github.com/Kalimuro/SHIROMU/issues)**: Submit bugs found or log feature requests for the `SHIROMU` project.
-- **💡 [Submit Pull Requests](https://github.com/Kalimuro/SHIROMU/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+- **💬 [Join the Discussions](https://github.com/SH1ROdev/SHIROMU/discussions)**: Share your insights, provide feedback, or ask questions.
+- **🐛 [Report Issues](https://github.com/SH1ROdev/SHIROMU/issues)**: Submit bugs found or log feature requests for the `SHIROMU` project.
+- **💡 [Submit Pull Requests](https://github.com/SH1ROdev/SHIROMU/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
 
 <details closed>
 <summary>Contributing Guidelines</summary>
@@ -389,7 +382,7 @@ Run the test suite using the following command:
 1. **Fork the Repository**: Start by forking the project repository to your github account.
 2. **Clone Locally**: Clone the forked repository to your local machine using a git client.
    ```sh
-   git clone https://github.com/Kalimuro/SHIROMU
+   git clone https://github.com/SH1ROdev/SHIROMU
    ```
 3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
    ```sh
@@ -412,8 +405,8 @@ Run the test suite using the following command:
 <summary>Contributor Graph</summary>
 <br>
 <p align="left">
-   <a href="https://github.com{/Kalimuro/SHIROMU/}graphs/contributors">
-      <img src="https://contrib.rocks/image?repo=Kalimuro/SHIROMU">
+   <a href="https://github.com{/SH1ROdev/SHIROMU/}graphs/contributors">
+      <img src="https://contrib.rocks/image?repo=SH1ROdev/SHIROMU">
    </a>
 </p>
 </details>
@@ -422,7 +415,7 @@ Run the test suite using the following command:
 
 ##  License
 
-This project is protected under the [MIT-LICENSE](https://choosealicense.com/licenses/mit/) License. For more details, refer to the [MIT-LICENSE](https://github.com/Kalimuro/SHIROMU/blob/master/LICENSE) file.
+This project is protected under the [MIT-LICENSE](https://choosealicense.com/licenses/mit/) License. For more details, refer to the [MIT-LICENSE](https://github.com/SH1ROdev/SHIROMU/blob/master/LICENSE) file.
 
 ---
 
