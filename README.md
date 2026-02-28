@@ -321,7 +321,11 @@ Before getting started with SHIROMU, ensure your runtime environment meets the f
 ###  Installation
 
 Install SHIROMU using one of the following methods:
-
+**Docker:**
+```sh
+❯ docker run -it realsh1ro/shiromu 
+```
+OR
 **Build from source:**
 
 1. Clone the SHIROMU repository:
