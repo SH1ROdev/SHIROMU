@@ -6,10 +6,10 @@
 	<em><code>❯ REPLACE-ME</code></em>
 </p>
 <p align="center">
-	<img src="https://img.shields.io/github/license/Kalimuro/SHIROMU?style=default&logo=opensourceinitiative&logoColor=white&color=ff0004" alt="license">
-	<img src="https://img.shields.io/github/last-commit/Kalimuro/SHIROMU?style=default&logo=git&logoColor=white&color=ff0004" alt="last-commit">
-	<img src="https://img.shields.io/github/languages/top/Kalimuro/SHIROMU?style=default&color=ff0004" alt="repo-top-language">
-	<img src="https://img.shields.io/github/languages/count/Kalimuro/SHIROMU?style=default&color=ff0004" alt="repo-language-count">
+	<img src="https://img.shields.io/github/license/SH1ROdev/SHIROMU?style=default&logo=opensourceinitiative&logoColor=white&color=ff0004" alt="license">
+	<img src="https://img.shields.io/github/last-commit/SH1ROdev/SHIROMU?style=default&logo=git&logoColor=white&color=ff0004" alt="last-commit">
+	<img src="https://img.shields.io/github/languages/top/SH1ROdev/SHIROMU?style=default&color=ff0004" alt="repo-top-language">
+	<img src="https://img.shields.io/github/languages/count/SH1ROdev/SHIROMU?style=default&color=ff0004" alt="repo-language-count">
 </p>
 <p align="center"><!-- default option, no dependency badges. -->
 </p>
@@ -330,7 +330,7 @@ OR
 
 1. Clone the SHIROMU repository:
 ```sh
-❯ git clone https://github.com/Kalimuro/SHIROMU
+❯ git clone https://github.com/SH1ROdev/SHIROMU
 ```
 
 2. Navigate to the project directory:
