@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://img.shields.io/badge/Focus-OSINT%252FSecurity-red" align="center" width="30%">
+    <img src="[https://img.shields.io/badge/Focus-OSINT%252FSecurity-red](https://yandex-images.clstorage.net/9bJq5G408/ab91b9llasyr/McqwGrrva_LMHTVPY4k7Xg7v5n7_proLJM91XXzYRRwk61uoFjqrB7RzDAGu7ST3jI1LohHjVA3N3ktJRI_YXqWfNB7K3ytj6Iz0a1KJ64o-LoNaH-JPK4TKBf7qWmIuNyno36QIKaZkJrxkavmgs6ob_7NG0aEqus3qH_GJjwuD-MGJDt1JoQjelj_De6jKP03Hm26iGMlzb3C-mbkQLTb5mR9le7mFx3SPNVucIKK4evsTNDOh2ms8OC-hulzLwJuj-TxeuMNbb-Z-I9npicwdRapcouuZ8h1Sv8nIwX5m-ojsdAnKxoc0T0aI3VKxukpZI9aB4cmpnwi94xvfqqJbA5v9X4nRWe3HHIGIaDovTcUJbyJriHAOIJ1I-VKOh7k7vQY4SlSVdm8FmS3hc_ipOZDVI_Ob2S2KLUEr_ZniCsPZH20oMxp8ly_xe_v63G8EWkyzm5uBbIDcKVsjvzX5Sz9lamnVhuQM9thfIfNbWLqDZ5MyK1idq21xWn778LhBWx0fiNJ73kQOkfvaaExPlakP4Tj6cA3RbTiq0A62umlupLmLNRVkbwU4PEKy2Ps5kDQTobu4nRr8Ayh9uoHqUGu8fCrh6h6GTTH6KVuM_PY5jZBpq5I_A4xJGuMNZauJXbdY6_cVtm4W2b8ig_i7KJCV4HGZyY7q3rPZ3ImTuBBIHBzZ0Mrf1GzhW6vr3lzXGi6TyimhnWIPaxhhT4ZZOG4G-Bv1xgYO1HsPAzN7-UnBZoHx2bmvGy3RWo5IEAux2U5s65JZzteN8tvruU-O9dq_EgvpA6wivWnZQu9UOilvZfqYZKdnzvcJXZMASyopIzfzI3v4zQsPQhn9KUDrk4rMvVozahznzhHoSkg_XJfqbaOryaJOYa-LCrEPBImLzhVY6lXEVU02220wg_j4iYI2wGPoukyZr1K6jPhAWHA53z75wSoO1x0y6cj7_t_n2N_Qa6oD3yOsc)" align="center" width="30%">
 </p>
 <p align="center"><h1 align="center">SHIROMU</h1></p>
 <p align="center">
