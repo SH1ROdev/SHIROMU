@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHIROMU :: SHIROMU VISUALIZATION</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            background: rgba(10, 20, 10, 0.9);
+            backdrop-filter: blur(10px);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3),
+                        inset 0 0 20px rgba(0, 255, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(0, 255, 0, 0.1) 50%,
+                transparent 70%
+            );
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-text {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ff00, #00aa00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            position: relative;
+        }
+
+        .logo-text::before,
+        .logo-text::after {
+            content: 'SHIROMU';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .logo-text::before {
+            color: #ff00ff;
+            transform: translateX(-2px);
+            animation: glitch-left 2s infinite linear alternate-reverse;
+        }
+
+        .logo-text::after {
+            color: #00ffff;
+            transform: translateX(2px);
+            animation: glitch-right 2s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-left {
+            0%, 100% { transform: translateX(-2px); opacity: 0.8; }
+            10% { transform: translateX(2px); opacity: 0.3; }
+            20% { transform: translateX(-4px); }
+            30% { transform: translateX(4px); }
+            40% { transform: translateX(-2px); }
+        }
+
+        @keyframes glitch-right {
+            0%, 100% { transform: translateX(2px); opacity: 0.8; }
+            10% { transform: translateX(-2px); opacity: 0.3; }
+            20% { transform: translateX(4px); }
+            30% { transform: translateX(-4px); }
+            40% { transform: translateX(2px); }
+        }
+
+        .status-panel {
+            background: #001500;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 14px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+        }
+
+        .status-panel .label {
+            color: #00aa00;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 12px;
+        }
+
+        .status-panel .value {
+            color: #00ff00;
+            font-size: 18px;
+            font-weight: bold;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .status-panel .glitch {
+            animation: glitch-text 3s infinite;
+        }
+
+        @keyframes glitch-text {
+            0%, 100% { opacity: 1; }
+            95% { opacity: 1; }
+            96% { opacity: 0; }
+            97% { opacity: 1; }
+            98% { opacity: 0; }
+            99% { opacity: 1; }
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 25px;
+        }
+
+        .toolbar {
+            background: rgba(0, 20, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toolbar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff00, transparent);
+            animation: scanline 3s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .tool-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #003300;
+            position: relative;
+        }
+
+        .tool-section:last-child {
+            border-bottom: none;
+        }
+
+        .tool-title {
+            font-size: 16px;
+            color: #00ff00;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .tool-title::before {
+            content: '>';
+            margin-right: 8px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .tool-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .tool-btn {
+            padding: 12px;
+            background: #001000;
+            border: 2px solid #003300;
+            border-radius: 5px;
+            color: #00aa00;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            font-family: 'Share Tech Mono', monospace;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(0, 255, 0, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            transition: transform 0.5s;
+        }
+
+        .tool-btn:hover {
+            border-color: #00ff00;
+            color: #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .tool-btn:hover::before {
+            transform: rotate(45deg) translate(100%, 100%);
+        }
+
+        .tool-btn.active {
+            background: #003300;
+            border-color: #00ff00;
+            color: #00ff00;
+            box-shadow: 0 0 30px #00ff00;
+        }
+
+        .node-type-badges {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .type-badge {
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+
+        .type-badge:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+            box-shadow: 0 0 15px currentColor;
+        }
+
+        .type-badge.person {
+            background: #330000;
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+            text-shadow: 0 0 5px #ff6b6b;
+        }
+        .type-badge.company {
+            background: #003333;
+            color: #4ecdc4;
+            border-color: #4ecdc4;
+            text-shadow: 0 0 5px #4ecdc4;
+        }
+        .type-badge.domain {
+            background: #001a33;
+            color: #45b7d1;
+            border-color: #45b7d1;
+            text-shadow: 0 0 5px #45b7d1;
+        }
+        .type-badge.email {
+            background: #003322;
+            color: #96ceb4;
+            border-color: #96ceb4;
+            text-shadow: 0 0 5px #96ceb4;
+        }
+        .type-badge.ip {
+            background: #332200;
+            color: #ffe194;
+            border-color: #ffe194;
+            text-shadow: 0 0 5px #ffe194;
+        }
+        .type-badge.service {
+            background: #1a0033;
+            color: #9b59b6;
+            border-color: #9b59b6;
+            text-shadow: 0 0 5px #9b59b6;
+        }
+
+        .hacker-form {
+            background: #001000;
+            border: 1px solid #003300;
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #00aa00;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            background: #000a00;
+            border: 2px solid #003300;
+            border-radius: 5px;
+            color: #00ff00;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .form-group input::placeholder {
+            color: #005500;
+        }
+
+        .graph-canvas {
+            background: #000500;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(0, 255, 0, 0.2),
+                        inset 0 0 20px rgba(0, 255, 0, 0.1);
+            height: 750px;
+            position: relative;
+        }
+
+        .graph-canvas::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 255, 0, 0.05) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #network {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .vis-network {
+            background: #000500;
+        }
+
+        .vis-tooltip {
+            background: #001000 !important;
+            border: 2px solid #00ff00 !important;
+            color: #00ff00 !important;
+            font-family: 'Share Tech Mono', monospace !important;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3) !important;
+        }
+
+        .vis-button {
+            background: #001000 !important;
+            border: 2px solid #003300 !important;
+            color: #00ff00 !important;
+            font-family: 'Share Tech Mono', monospace !important;
+        }
+
+        .vis-button:hover {
+            border-color: #00ff00 !important;
+            box-shadow: 0 0 15px #00ff00 !important;
+        }
+
+        .status-bar {
+            background: rgba(0, 20, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 15px 25px;
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+        }
+
+        .stats {
+            display: flex;
+            gap: 30px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stat-label {
+            color: #00aa00;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            color: #00ff00;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 0 0 15px #00ff00;
+        }
+
+        .stat-value.blink {
+            animation: blink 2s infinite;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .hacker-btn {
+            padding: 12px 24px;
+            background: #001000;
+            border: 2px solid #003300;
+            border-radius: 5px;
+            color: #00aa00;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hacker-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(0, 255, 0, 0.2),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: btn-scan 3s linear infinite;
+        }
+
+        @keyframes btn-scan {
+            0% { transform: rotate(45deg) translateX(-100%); }
+            100% { transform: rotate(45deg) translateX(100%); }
+        }
+
+        .hacker-btn:hover {
+            border-color: #00ff00;
+            color: #00ff00;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .hacker-btn.primary {
+            background: #003300;
+            border-color: #00ff00;
+            color: #00ff00;
+        }
+
+        .hacker-btn.primary:hover {
+            background: #004400;
+            box-shadow: 0 0 40px #00ff00;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #001000;
+            border: 3px solid #00ff00;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 0 50px rgba(0, 255, 0, 0.3);
+        }
+
+        .modal-content h3 {
+            color: #00ff00;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px #00ff00;
+        }
+
+        .json-preview {
+            background: #000500;
+            border: 2px solid #003300;
+            border-radius: 5px;
+            padding: 20px;
+            color: #00ff00;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 14px;
+            margin: 20px 0;
+            max-height: 400px;
+            overflow-y: auto;
+            box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.1);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+
+        .ascii-art {
+            font-size: 8px;
+            line-height: 1;
+            color: #00aa00;
+            margin-top: 10px;
+            white-space: pre;
+            text-align: center;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #001000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #003300;
+            border: 1px solid #00ff00;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #004400;
+        }
+
+        @media (max-width: 1200px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .graph-canvas {
+                height: 500px;
+            }
+
+            .logo-text {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-canvas"></canvas>
+
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <div class="logo-text">SHIROMU</div>
+                <div class="status-panel">
+                    <div class="value glitch">> SHIROMU VISUALIZATION <</div>
+                </div>
+            </div>
+            <div class="ascii-art">
+                ╔══════════════════════════════════════════════════════════╗
+                ║  ███████╗██╗  ██╗██╗██████╗  ██████╗ ███╗   ███╗██╗   ██╗  ║
+                ║  ██╔════╝██║  ██║██║██╔══██╗██╔═══██╗████╗ ████║██║   ██║  ║
+                ║  ███████╗███████║██║██████╔╝██║   ██║██╔████╔██║██║   ██║  ║
+                ║  ╚════██║██╔══██║██║██╔══██╗██║   ██║██║╚██╔╝██║██║   ██║  ║
+                ║  ███████║██║  ██║██║██║  ██║╚██████╔╝██║ ╚═╝ ██║╚██████╔╝  ║
+                ║  ╚══════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝ ╚═════╝   ║
+                ╚══════════════════════════════════════════════════════════╝
+            </div>
+        </div>
+
+        <div class="main-layout">
+            <div class="toolbar">
+                <div class="tool-section">
+                    <div class="tool-title">[ РЕЖИМЫ РАБОТЫ ]</div>
+                    <div class="tool-buttons">
+                        <button class="tool-btn" id="modeSelect" onclick="setMode('select')">
+                            <span>👆 ВЫДЕЛИТЬ</span>
+                        </button>
+                        <button class="tool-btn" id="modeAddNode" onclick="setMode('addNode')">
+                            <span>➕ УЗЕЛ</span>
+                        </button>
+                        <button class="tool-btn" id="modeAddEdge" onclick="setMode('addEdge')">
+                            <span>🔗 СВЯЗЬ</span>
+                        </button>
+                        <button class="tool-btn" id="modeDelete" onclick="setMode('delete')">
+                            <span>🗑️ УДАЛИТЬ</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tool-section">
+                    <div class="tool-title">[ ТИПЫ УЗЛОВ ]</div>
+                    <div class="node-type-badges">
+                        <span class="type-badge person" onclick="setNodeType('person')">ЧЕЛОВЕК</span>
+                        <span class="type-badge company" onclick="setNodeType('company')">КОМПАНИЯ</span>
+                        <span class="type-badge domain" onclick="setNodeType('domain')">ДОМЕН</span>
+                        <span class="type-badge email" onclick="setNodeType('email')">EMAIL</span>
+                        <span class="type-badge ip" onclick="setNodeType('ip')">IP АДРЕС</span>
+                        <span class="type-badge service" onclick="setNodeType('service')">СЕРВИС</span>
+                    </div>
+                </div>
+
+                <div class="tool-section">
+                    <div class="tool-title">[ СОЗДАТЬ УЗЕЛ ]</div>
+                    <div class="hacker-form">
+                        <div class="form-group">
+                            <label>> НАЗВАНИЕ УЗЛА</label>
+                            <input type="text" id="nodeLabel" placeholder="Например: Евгений Вавилонов">
+                        </div>
+                        <div class="form-group">
+                            <label>> ТИП УЗЛА</label>
+                            <select id="nodeType">
+                                <option value="person">👤 ЧЕЛОВЕК</option>
+                                <option value="company">🏢 КОМПАНИЯ</option>
+                                <option value="domain">🌐 ДОМЕН</option>
+                                <option value="email">📧 EMAIL</option>
+                                <option value="ip">🔢 IP АДРЕС</option>
+                                <option value="service">⚙️ СЕРВИС</option>
+                            </select>
+                        </div>
+                        <button class="hacker-btn primary" onclick="addNodeFromForm()" style="width: 100%;">
+                            <span>➕ СОЗДАТЬ УЗЕЛ</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tool-section">
+                    <div class="tool-title">[ БЫСТРЫЕ ДЕЙСТВИЯ ]</div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="hacker-btn" onclick="clearGraph()">
+                            <span>🗑️ ОЧИСТИТЬ ГРАФ</span>
+                        </button>
+                        <button class="hacker-btn" onclick="loadPreset('social')">
+                            <span>👥 СОЦИАЛЬНАЯ СЕТЬ</span>
+                        </button>
+                        <button class="hacker-btn" onclick="loadPreset('infra')">
+                            <span>🌐 ИНФРАСТРУКТУРА</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="graph-canvas">
+                <div id="network"></div>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-label">УЗЛОВ:</span>
+                    <span class="stat-value" id="nodeCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">СВЯЗЕЙ:</span>
+                    <span class="stat-value" id="edgeCount">0</span>
+                </div>
+                <div class="stat-item">
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="hacker-btn" onclick="showJSON()">
+                    <span>📋 ПОКАЗАТЬ JSON</span>
+                </button>
+                <button class="hacker-btn primary" onclick="saveGraph()">
+                    <span>💾 СОХРАНИТЬ</span>
+                </button>
+                <button class="hacker-btn" onclick="exportGraph()">
+                    <span>📸 СКРИНШОТ</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="jsonModal">
+        <div class="modal-content">
+            <h3>[ JSON ДАННЫЕ ГРАФА ]</h3>
+            <div class="json-preview" id="jsonPreview"></div>
+            <div class="modal-buttons">
+                <button class="hacker-btn" onclick="closeModal()">ЗАКРЫТЬ</button>
+                <button class="hacker-btn primary" onclick="copyJSON()">КОПИРОВАТЬ</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ0123456789";
+        const digits = matrix.split("");
+
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < drops.length; i++) {
+                const text = digits[Math.floor(Math.random() * digits.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 35);
+
+        let nodes = new vis.DataSet([]);
+        let edges = new vis.DataSet([]);
+        let network = null;
+        let currentMode = 'select';
+        let currentNodeType = 'person';
+        let selectedNodeId = null;
+
+        const colors = {
+            'person': '#FF6B6B',
+            'company': '#4ECDC4',
+            'domain': '#45B7D1',
+            'email': '#96CEB4',
+            'ip': '#FFE194',
+            'service': '#9B59B6',
+            'default': '#00FF00'
+        };
+
+        function initGraph() {
+            const container = document.getElementById('network');
+
+            const data = {
+                nodes: nodes,
+                edges: edges
+            };
+
+            const options = {
+                physics: {
+                    stabilization: true,
+                    barnesHut: {
+                        gravitationalConstant: -8000,
+                        springConstant: 0.001,
+                        springLength: 200
+                    }
+                },
+                interaction: {
+                    navigationButtons: true,
+                    keyboard: true,
+                    multiselect: true,
+                    tooltipDelay: 200
+                },
+                manipulation: {
+                    enabled: false
+                },
+                nodes: {
+                    shape: 'dot',
+                    size: 30,
+                    font: {
+                        size: 14,
+                        color: '#ffffff',
+                        face: 'Share Tech Mono',
+                        strokeWidth: 2,
+                        strokeColor: '#000000'
+                    },
+                    borderWidth: 2,
+                    shadow: {
+                        enabled: true,
+                        color: 'rgba(0,255,0,0.5)',
+                        size: 10
+                    }
+                },
+                edges: {
+                    width: 2,
+                    shadow: {
+                        enabled: true,
+                        color: 'rgba(0,255,0,0.3)',
+                        size: 5
+                    },
+                    font: {
+                        size: 12,
+                        color: '#00ff00',
+                        face: 'Share Tech Mono',
+                        align: 'middle',
+                        strokeWidth: 2,
+                        strokeColor: '#000000'
+                    },
+                    arrows: {
+                        to: { enabled: true, scaleFactor: 0.5 }
+                    },
+                    smooth: {
+                        type: 'curvedCW',
+                        roundness: 0.2
+                    },
+                    color: {
+                        color: '#00ff00',
+                        highlight: '#ffffff',
+                        hover: '#00aa00'
+                    }
+                }
+            };
+
+            network = new vis.Network(container, data, options);
+
+            network.on('click', function(params) {
+                handleNetworkClick(params);
+            });
+
+            network.on('doubleClick', function(params) {
+                handleDoubleClick(params);
+            });
+
+            network.on('select', function(params) {
+                updateSelection(params);
+            });
+
+            network.on('dragEnd', function() {
+                updateStats();
+            });
+
+            updateStats();
+        }
+
+        function handleNetworkClick(params) {
+            if (currentMode === 'addNode') {
+                addNodeAtPosition(params.pointer.canvas);
+            } else if (currentMode === 'delete') {
+                if (params.nodes.length > 0) {
+                    nodes.remove(params.nodes);
+                }
+                if (params.edges.length > 0) {
+                    edges.remove(params.edges);
+                }
+            } else if (currentMode === 'addEdge') {
+                if (params.nodes.length > 0) {
+                    if (!selectedNodeId) {
+                        selectedNodeId = params.nodes[0];
+                        network.selectNodes([selectedNodeId]);
+                    } else {
+                        const fromNode = selectedNodeId;
+                        const toNode = params.nodes[0];
+
+                        if (fromNode !== toNode) {
+                            const label = prompt('Введите тип связи:', 'СВЯЗАН С');
+                            edges.add({
+                                from: fromNode,
+                                to: toNode,
+                                label: label || 'СВЯЗАН С',
+                                arrows: 'to'
+                            });
+                        }
+
+                        selectedNodeId = null;
+                        network.selectNodes([]);
+                    }
+                }
+            }
+
+            updateStats();
+        }
+
+        function addNodeAtPosition(position) {
+            const label = document.getElementById('nodeLabel').value || 'Новый узел';
+            const type = document.getElementById('nodeType').value;
+
+            const nodeId = 'node_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+
+            nodes.add({
+                id: nodeId,
+                label: label,
+                type: type,
+                color: colors[type] || colors.default,
+                x: position.x,
+                y: position.y,
+                fixed: true,
+                shadow: true
+            });
+
+            setTimeout(() => {
+                nodes.update({ id: nodeId, fixed: false });
+            }, 100);
+
+            document.getElementById('nodeLabel').value = '';
+            updateStats();
+        }
+
+        function addNodeFromForm() {
+            const label = document.getElementById('nodeLabel').value;
+            const type = document.getElementById('nodeType').value;
+
+            if (!label) {
+                alert('⚠️ ОШИБКА: Введите название узла');
+                return;
+            }
+
+            const nodeId = 'node_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+
+            nodes.add({
+                id: nodeId,
+                label: label,
+                type: type,
+                color: colors[type] || colors.default,
+                shadow: true
+            });
+
+            document.getElementById('nodeLabel').value = '';
+            updateStats();
+        }
+
+        function handleDoubleClick(params) {
+            if (params.nodes.length > 0) {
+                const nodeId = params.nodes[0];
+                const node = nodes.get(nodeId);
+
+                const newLabel = prompt('Измените название узла:', node.label);
+                if (newLabel) {
+                    nodes.update({ id: nodeId, label: newLabel });
+                }
+            }
+        }
+
+        function updateSelection(params) {
+            if (params.nodes.length > 0) {
+                const node = nodes.get(params.nodes[0]);
+                document.getElementById('nodeLabel').value = node.label || '';
+
+                const typeSelect = document.getElementById('nodeType');
+                if (node.type) {
+                    for (let i = 0; i < typeSelect.options.length; i++) {
+                        if (typeSelect.options[i].value === node.type) {
+                            typeSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            selectedNodeId = null;
+
+            document.querySelectorAll('.tool-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(`mode${mode.charAt(0).toUpperCase() + mode.slice(1)}`).classList.add('active');
+
+            if (mode === 'addEdge') {
+                network.setOptions({ interaction: { selectable: true } });
+            } else {
+                network.selectNodes([]);
+            }
+        }
+
+        function setNodeType(type) {
+            currentNodeType = type;
+            document.getElementById('nodeType').value = type;
+        }
+
+        function clearGraph() {
+            if (confirm('⚠️ ВНИМАНИЕ: Очистить весь граф?')) {
+                nodes.clear();
+                edges.clear();
+                updateStats();
+            }
+        }
+
+        function loadPreset(preset) {
+            nodes.clear();
+            edges.clear();
+
+            if (preset === 'social') {
+                nodes.add([
+                    { id: 'p1', label: 'Алексей', type: 'person', color: colors.person },
+                    { id: 'p2', label: 'Мария', type: 'person', color: colors.person },
+                    { id: 'p3', label: 'Дмитрий', type: 'person', color: colors.person },
+                    { id: 'p4', label: 'Елена', type: 'person', color: colors.person },
+                    { id: 'c1', label: 'ООО Тмыв', type: 'company', color: colors.company }
+                ]);
+
+                edges.add([
+                    { from: 'p1', to: 'p2', label: 'ЗНАКОМЫЕ', arrows: 'to' },
+                    { from: 'p1', to: 'p3', label: 'КОЛЛЕГИ', arrows: 'to' },
+                    { from: 'p2', to: 'p4', label: 'ДРУЗЬЯ', arrows: 'to' },
+                    { from: 'p3', to: 'p4', label: 'ЗНАКОМЫЕ', arrows: 'to' },
+                    { from: 'p1', to: 'c1', label: 'РАБОТАЕТ В', arrows: 'to' },
+                    { from: 'p3', to: 'c1', label: 'РАБОТАЕТ В', arrows: 'to' }
+                ]);
+            } else if (preset === 'infra') {
+                nodes.add([
+                    { id: 'd1', label: 'example.com', type: 'domain', color: colors.domain },
+                    { id: 'ip1', label: '192.168.1.1', type: 'ip', color: colors.ip },
+                    { id: 'ip2', label: '10.0.0.1', type: 'ip', color: colors.ip },
+                    { id: 's1', label: 'Почтовый сервер', type: 'service', color: colors.service },
+                    { id: 's2', label: 'Веб сервер', type: 'service', color: colors.service }
+                ]);
+
+                edges.add([
+                    { from: 'd1', to: 'ip1', label: 'RESOLVES TO', arrows: 'to' },
+                    { from: 'd1', to: 's2', label: 'ХОСТИТ', arrows: 'to' },
+                    { from: 'ip1', to: 's1', label: 'ЗАПУЩЕН', arrows: 'to' },
+                    { from: 'ip2', to: 's1', label: 'БЭКАП', arrows: 'to' }
+                ]);
+            }
+
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('nodeCount').textContent = nodes.length;
+            document.getElementById('edgeCount').textContent = edges.length;
+        }
+
+        function showJSON() {
+            const graphData = {
+                nodes: nodes.get().map(node => ({
+                    id: node.id,
+                    label: node.label,
+                    type: node.type || 'entity',
+                    properties: {}
+                })),
+                edges: edges.get().map(edge => ({
+                    source: edge.from,
+                    target: edge.to,
+                    label: edge.label || ''
+                }))
+            };
+
+            document.getElementById('jsonPreview').textContent = JSON.stringify(graphData, null, 2);
+            document.getElementById('jsonModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('jsonModal').classList.remove('active');
+        }
+
+        function copyJSON() {
+            const jsonText = document.getElementById('jsonPreview').textContent;
+            navigator.clipboard.writeText(jsonText).then(() => {
+                alert('📋 JSON скопирован в буфер обмена');
+            });
+        }
+
+        async function saveGraph() {
+            const graphData = {
+                nodes: nodes.get().map(node => ({
+                    id: node.id,
+                    label: node.label,
+                    type: node.type || 'entity',
+                    properties: {}
+                })),
+                edges: edges.get().map(edge => ({
+                    source: edge.from,
+                    target: edge.to,
+                    label: edge.label || ''
+                })),
+                name: 'SHIROMU_ГРАФ_' + new Date().toISOString().replace(/[:.]/g, '-')
+            };
+
+            try {
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(graphData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert(`✅ ГРАФ СОХРАНЕН: ${data.message}`);
+                    window.open(data.url, '_blank');
+                } else {
+                    alert('❌ ОШИБКА: ' + data.message);
+                }
+            } catch (error) {
+                alert('❌ ОШИБКА СОЕДИНЕНИЯ: ' + error);
+            }
+        }
+
+        function exportGraph() {
+            if (network) {
+                const canvas = network.canvas.frame.canvas;
+                const dataUrl = canvas.toDataURL('image/png');
+
+                const link = document.createElement('a');
+                link.download = `SHIROMU_${Date.now()}.png`;
+                link.href = dataUrl;
+                link.click();
+            }
+        }
+
+        window.onload = function() {
+            initGraph();
+            setMode('select');
+        };
+    </script>
+</body>
+</html>

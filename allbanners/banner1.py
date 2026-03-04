@@ -19,7 +19,7 @@ def banner_one():
     print(
         Fore.BLUE + "  ├─ [02] Поиск по базе                 ├─ [08] Поиск IP-адреса по домену                 ├─ [15] SMS-бомбер" + Fore.RESET)
     print(
-        Fore.BLUE + "  ├─ [03] Поиск метаданных по фото      ├─ [09] Сканирование портов                       ├─ [16] Снос тг аккаунтов" + Fore.RESET)
+        Fore.BLUE + "  ├─ [03] Поиск метаданных фото         ├─ [09] Сканирование портов                       ├─ [16] Снос тг аккаунтов" + Fore.RESET)
     print(
         Fore.BLUE + "  ├─ [04] Поиск по адресу               ├─ [xx] В разработке...                           ├─ [17] Снос тгк" + Fore.RESET)
     print(
@@ -38,6 +38,8 @@ def banner_one():
         Fore.BLUE + "  ├─ [10] Поиск по email" + Fore.RESET)
     print(
         Fore.BLUE + "  ├─ [43] Поиск по STEAM ID" + Fore.RESET)
+    print(
+        Fore.BLUE + "  ├─ [44] Визуализация данных" + Fore.RESET)
 
     print(Fore.BLUE + "└─ [52] Поиск по никнейму" + Fore.RESET)
 

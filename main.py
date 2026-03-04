@@ -1,5 +1,9 @@
 import asyncio
 import re
+
+import instaloader
+import uvicorn
+
 from utils.steamsearch import get_steam_data, display_profile_info, display_friends_info
 from utils.shiromu_helper import shhelper_help
 from utils import metasearch
@@ -19,6 +23,10 @@ from smscallbomber import SMSCallBomber
 from utils import nicks
 from utils.discord_osint import get_discord_user_info, get_info_by_dsid, get_all_nicknames, get_nicks_by_id, \
     get_friends_by_id, sobitiya_usera, voice_history, format_voice_history
+import sys
+import subprocess
+import sys
+from pathlib import Path
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -428,6 +436,27 @@ while True:
 
             if __name__ == "__main__":
                 main()
+        if vd == 44:
+            GRAPHS_PATH = Path(__file__).parent / "Graphs"
+            WEBAPP_PATH = GRAPHS_PATH / "webapp.py"
+
+
+            def run_webapp():
+                print("🚀 Запуск SHIROMU VISUALIZATION...")
+                if not WEBAPP_PATH.exists():
+                    print(f"Путь не найден")
+                    return
+
+                try:
+                    subprocess.run([sys.executable, str(WEBAPP_PATH)])
+                except KeyboardInterrupt:
+                    print("\n Bye Bye")
+                except Exception as e:
+                    print(f" Error")
+
+
+            if __name__ == "__main__":
+                run_webapp()
 
         if vd in [91, 16, 17, 18, 78, 93, 33, 34, 22, 29, 52]:  # 22
             print(ifv)
